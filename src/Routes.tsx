@@ -1,5 +1,6 @@
 import Header from 'core/components/Header';
 import Home from 'pages/Home';
+import Search from 'pages/Search';
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ const Routes = () => (
                 <Home />
             </Route>
             <Route path="/search">
-                Search
+                <Search />
             </Route>
         </Switch>
     </BrowserRouter>

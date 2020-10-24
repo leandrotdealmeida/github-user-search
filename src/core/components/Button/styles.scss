@@ -1,20 +1,20 @@
 .display-button {
     display: flex;
+    padding-top: 30px;
 }
 
-.button {
-    margin-top: 48px;
-    margin-bottom: 270px;
+.button-pos {    
     width: 101px;
     height: 40px;
     background: #1890FF;
     border-radius: 4px;
-    
-    .text-button {
-        margin-top: 5px;
-        align-items: center;
-        color: #fff;
-    }
+    cursor: pointer;    
+   
+}
+
+.text-button {
+    margin-top: 5px;    
+    color: #fff;
 }
 
 

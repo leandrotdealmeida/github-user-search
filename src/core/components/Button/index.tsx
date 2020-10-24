@@ -7,7 +7,7 @@ type Props = {
 
 const Button = ({ text }: Props) => (
     <div className="display-button">
-        <button className="button">
+        <button className="button-pos">
             <h5 className="text-button">{text}</h5>
         </button>
     </div>
