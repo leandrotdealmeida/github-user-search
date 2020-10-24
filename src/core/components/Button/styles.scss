@@ -1,0 +1,21 @@
+.display-button {
+    display: flex;
+}
+
+.button {
+    margin-top: 48px;
+    margin-bottom: 270px;
+    width: 101px;
+    height: 40px;
+    background: #1890FF;
+    border-radius: 4px;
+    
+    .text-button {
+        margin-top: 5px;
+        align-items: center;
+        color: #fff;
+    }
+}
+
+
+
