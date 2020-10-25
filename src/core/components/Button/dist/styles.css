@@ -1,0 +1,16 @@
+.display-button {
+  display: flex;
+}
+
+.button-pos {
+  width: 101px;
+  height: 40px;
+  background: #1890FF;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.text-button {
+  margin-top: 5px;
+  color: #fff;
+}

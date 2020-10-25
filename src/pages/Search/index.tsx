@@ -1,18 +1,10 @@
+import React, { useEffect, useState } from 'react';
 import Button from 'core/components/Button';
 import { makeRequest } from 'core/utils/request';
-import React, { useState } from 'react';
+import InfoLoader from './components/Loaders/InfoLoader';
 import './styles.scss';
-
-type User = {
-    empresa: string;
-    site: string;
-    localidade: string;
-    data: string;
-    repositorios: number;
-    seguidores: number;
-    seguindo: number;
-    imgUrl: string;
-}
+import { User } from 'core/components/types/User';
+import ImageLoader from './components/Loaders/ImageLoader';
 
 type FormState = {
     user: string;
@@ -20,10 +12,16 @@ type FormState = {
 
 const Search = () => {
     const [formData, setFormData] = useState<FormState>({
-        user: ''
+        user: ''       
     });
 
     const [userResponse, setUserResponse] = useState<User>();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isView, setIsView] = useState(false);    
+    useEffect(() => {
+
+        console.log("effect" + isLoading)
+    }, [])
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name;
@@ -32,6 +30,7 @@ const Search = () => {
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        setIsLoading(true);
         event.preventDefault();
         const payload = {
             ...formData
@@ -39,9 +38,15 @@ const Search = () => {
 
         console.log(payload);
         makeRequest({ url: `/users/${payload.user}` })
-            .then((response) => console.log(response.data))
-            .catch(error => console.log(error));
+            .then((response) => {
+                setUserResponse(response.data);
+                console.log(response.data);
+                setIsView(true);
 
+            }
+            )
+            .catch(error => console.log(error))
+            .finally(() => setIsLoading(false));
     }
 
     return (
@@ -66,45 +71,75 @@ const Search = () => {
                 </form>
             </div>
 
-            <div className="result-area">
-                <div className="image-container">
-                {/* <img src={product.imgUrl} alt={product.name}/> */}
-                </div>
+            <div 
+            className={`result-area ${isView ? 'active' : ''}`}>
+                {isLoading ? (<ImageLoader />) : (
+                    <>
+                    </>
+                )}
+                {isView ? (<div className="image-container">
+                    <img src={userResponse?.avatar_url} alt="" className="avatar-image" />
+                    <div className="perfil-button">
+                        <a href={userResponse?.html_url}>
+                            <Button text="Ver perfil" />
+                        </a>
 
-                <div className="user-details-container ">
-                    <div className="repo-container">
-                        <div className="git-repo">
-                            <text className="repo-text">Repositórios públicos: </text>
+                    </div>
+                </div>) : (
+                        <>
+                        </>
+                    )}
+
+                {isLoading ? (<InfoLoader />) : (
+                    <>
+                    </>
+                )}
+
+                {isView ? (
+                    <div className="user-details-container ">
+                        <div className="repo-container">
+                            <div className="git-repo">
+                                <text className="repo-text">Repositórios públicos:{userResponse?.public_repos} </text>
+                            </div>
+
+                            <div className="git-seguidores">
+                                <text className="repo-text">Seguidores:{userResponse?.followers} </text>
+                            </div>
+
+                            <div className="git-seguindo">
+                                <text className="repo-text">Seguindo:{userResponse?.following}</text>
+                            </div>
+
+                        </div>
+                        <text className="info">Informações</text>
+
+                        <div className="field-empresa">
+                            <text className="text-empresa">Empresa:{userResponse?.company} </text>
                         </div>
 
-                        <div className="git-seguidores">
-                            <text className="repo-text">Seguidores: </text>
+                        <div className="field-empresa">
+                            <text className="text-empresa">Website/Blog:{userResponse?.blog} </text>
                         </div>
 
-                        <div className="git-seguindo">
-                            <text className="repo-text">Seguindo: </text>
+                        <div className="field-empresa">
+                            <text className="text-empresa">Localidade:{userResponse?.location} </text>
+                        </div>
+
+                        <div className="field-empresa">
+                            <text className="text-empresa">Membro desde:{userResponse?.created_at} </text>
                         </div>
 
                     </div>
-                    <text className="info">Informações</text>
 
-                    <div className="field-empresa">
-                        <text className="text-empresa">Empresa: </text>
-                    </div>
+                ) : (
+                        <>
+                        </>
+                    )}
 
-                    <div className="field-empresa">
-                        <text className="text-empresa">Website/Blog: </text>
-                    </div>
 
-                    <div className="field-empresa">
-                        <text className="text-empresa">Localidade: </text>
-                    </div>
 
-                    <div className="field-empresa">
-                        <text className="text-empresa">Membro desde: </text>
-                    </div>
 
-                </div>
+
 
             </div>
 

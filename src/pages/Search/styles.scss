@@ -27,24 +27,37 @@
 
 .search-area-button {
     padding-left: 94px;
+    margin-top: 30px;
 }
 
 .result-area {
     display: flex;
     width: 1251px;
     height: 387px;
-    background: #F5F5F5;
+    
     border-radius: 8px;
     margin-top: 54px;
     margin-left: 94px;
     margin-bottom: 70px;
+
+    &.active {
+        background: #F5F5F5;
+    }
 }
 
 .image-container {
     margin: 25px 0 84px 30px;
     width: 284px;
+    height: 280px;   
+}
+
+.avatar-image {
+    width: 284px;
     height: 280px;
-    background-color: #fff;
+}
+
+.perfil-button{    
+    margin-top: 15px;
 }
 
 .user-details-container {
@@ -129,7 +142,6 @@
 
 .text-empresa {
     margin-left: 12px;
-    font-weight: bold;
     font-size: 16px;
     line-height: 24px;
 
