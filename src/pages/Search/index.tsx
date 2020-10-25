@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'core/components/Button';
 import { makeRequest } from 'core/utils/request';
 import InfoLoader from './components/Loaders/InfoLoader';
@@ -12,16 +12,12 @@ type FormState = {
 
 const Search = () => {
     const [formData, setFormData] = useState<FormState>({
-        user: ''       
+        user: ''
     });
 
     const [userResponse, setUserResponse] = useState<User>();
     const [isLoading, setIsLoading] = useState(false);
-    const [isView, setIsView] = useState(false);    
-    useEffect(() => {
-
-        console.log("effect" + isLoading)
-    }, [])
+    const [isView, setIsView] = useState(false);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name;
@@ -71,8 +67,8 @@ const Search = () => {
                 </form>
             </div>
 
-            <div 
-            className={`result-area ${isView ? 'active' : ''}`}>
+            <div
+                className={`result-area ${isView ? 'active' : ''}`}>
                 {isLoading ? (<ImageLoader />) : (
                     <>
                     </>
@@ -135,11 +131,6 @@ const Search = () => {
                         <>
                         </>
                     )}
-
-
-
-
-
 
             </div>
 
